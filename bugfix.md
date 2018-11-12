@@ -1,0 +1,2 @@
+## requests.exceptions.ConnectionError: HTTPConnectionPool(host='localhost', port=8097):
+This problem is related to visdom. You can start the visdom visualizatoin server by running `python -m visdom.server`. You can disable the visdom visualization by adding `--display_id 0`
