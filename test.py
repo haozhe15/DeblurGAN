@@ -7,7 +7,9 @@ from util.visualizer import Visualizer
 from pdb import set_trace as st
 from util import html
 from util.metrics import PSNR
-from util.metrics import SSIM
+# from ssim import SSIM
+# from util.metrics import SSIM
+from skimage.measure import compare_ssim as ssim
 from PIL import Image
 
 opt = TestOptions().parse()
@@ -35,17 +37,19 @@ for i, data in enumerate(dataset):
 	model.set_input(data)
 	model.test()
 	visuals = model.get_current_visuals()
-	#avgPSNR += PSNR(visuals['fake_B'],visuals['real_B'])
-	#pilFake = Image.fromarray(visuals['fake_B'])
-	#pilReal = Image.fromarray(visuals['real_B'])
-	#avgSSIM += SSIM(pilFake).cw_ssim_value(pilReal)
+
+	avgPSNR += PSNR(visuals['fake_B'],visuals['real_A'])
+	pilFake = Image.fromarray(visuals['fake_B'])
+	pilReal = Image.fromarray(visuals['real_A'])
+	avgSSIM += ssim(pilFake, pilReal, multichannel=True)
+
 	img_path = model.get_image_paths()
 	print('process image... %s' % img_path)
 	visualizer.save_images(webpage, visuals, img_path)
 	
-#avgPSNR /= counter
-#avgSSIM /= counter
-#print('PSNR = %f, SSIM = %f' %
-#				  (avgPSNR, avgSSIM))
+avgPSNR /= counter
+avgSSIM /= counter
+print('PSNR = %f, SSIM = %f' %
+				  (avgPSNR, avgSSIM))
 
 webpage.save()

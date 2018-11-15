@@ -2,7 +2,7 @@
 aspect_ratio: 1.0
 batchSize: 1
 checkpoints_dir: ./checkpoints
-dataroot: /Users/haozhewang/Desktop/DeblurGAN-test
+dataroot: /Users/haozhewang/Desktop/GOPRO_Large/test/GOPR0384_11_00/blur
 dataset_mode: single
 display_id: 1
 display_port: 8097

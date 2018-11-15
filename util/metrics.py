@@ -21,7 +21,6 @@ def SSIM(img1, img2):
 	window = create_window(window_size, channel)
 	mu1 = F.conv2d(img1, window, padding = window_size/2, groups = channel)
 	mu2 = F.conv2d(img2, window, padding = window_size/2, groups = channel)
-
 	mu1_sq = mu1.pow(2)
 	mu2_sq = mu2.pow(2)
 	mu1_mu2 = mu1*mu2
